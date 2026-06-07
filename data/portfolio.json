@@ -5,9 +5,11 @@
       "title": "某小学毕业典礼拍摄",
       "category": "primary",
       "type": "activity",
+      "mediaType": "photo",
       "school": "广州市某小学",
       "description": "全程跟拍毕业典礼，记录学子难忘时刻",
       "image": "",
+      "video": "",
       "featured": true,
       "createdAt": "2025-06-01"
     },
@@ -16,9 +18,11 @@
       "title": "某中学毕业微电影",
       "category": "middle",
       "type": "film",
+      "mediaType": "video",
       "school": "深圳市某中学",
       "description": "电影级制作，记录独一无二的青春故事",
       "image": "",
+      "video": "",
       "featured": true,
       "createdAt": "2025-05-15"
     },
@@ -27,9 +31,11 @@
       "title": "某高中毕业相册",
       "category": "high",
       "type": "album",
+      "mediaType": "photo",
       "school": "佛山市某高中",
       "description": "个性化版面设计，高品质印刷工艺",
       "image": "",
+      "video": "",
       "featured": true,
       "createdAt": "2025-04-20"
     }

@@ -1,14 +1,17 @@
 export type PortfolioCategory = "primary" | "middle" | "high";
 export type PortfolioType = "activity" | "promo" | "album" | "film";
+export type MediaType = "photo" | "video";
 
 export interface PortfolioItem {
   id: string;
   title: string;
   category: PortfolioCategory;
   type: PortfolioType;
+  mediaType: MediaType;
   school: string;
   description: string;
   image: string;
+  video: string;
   featured: boolean;
   createdAt: string;
 }

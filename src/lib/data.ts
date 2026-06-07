@@ -26,7 +26,13 @@ export async function getSiteConfig(): Promise<SiteConfig> {
 }
 
 export async function getPortfolio(): Promise<PortfolioData> {
-  return readJson<PortfolioData>("portfolio.json");
+  const data = await readJson<PortfolioData>("portfolio.json");
+  data.items = data.items.map((item) => ({
+    ...item,
+    mediaType: item.mediaType ?? "photo",
+    video: item.video ?? "",
+  }));
+  return data;
 }
 
 export async function getPartners(): Promise<PartnersData> {

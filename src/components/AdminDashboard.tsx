@@ -4,8 +4,8 @@ import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import type { PortfolioItem, PartnerSchool } from "@/types";
-import { CATEGORY_LABELS, TYPE_LABELS } from "@/lib/constants";
+import type { PortfolioItem, PartnerSchool, MediaType } from "@/types";
+import { CATEGORY_LABELS, TYPE_LABELS, MEDIA_TYPE_LABELS } from "@/lib/constants";
 
 type Tab = "portfolio" | "partners";
 
@@ -22,11 +22,14 @@ export default function AdminDashboard() {
     title: "",
     category: "primary" as PortfolioItem["category"],
     type: "activity" as PortfolioItem["type"],
+    mediaType: "photo" as MediaType,
     school: "",
     description: "",
     image: "",
+    video: "",
     featured: false,
   });
+  const [uploading, setUploading] = useState<string | null>(null);
 
   const [partnerForm, setPartnerForm] = useState({
     name: "",
@@ -55,38 +58,62 @@ export default function AdminDashboard() {
       title: "",
       category: "primary",
       type: "activity",
+      mediaType: "photo",
       school: "",
       description: "",
       image: "",
+      video: "",
       featured: false,
     });
     setEditingId(null);
     setShowForm(false);
   };
 
-  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleUpload = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+    field: "image" | "video"
+  ) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
+    setUploading(field);
     const formData = new FormData();
     formData.append("file", file);
 
-    const res = await fetch("/api/upload", {
-      method: "POST",
-      body: formData,
-    });
+    try {
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
 
-    if (res.ok) {
-      const { url } = await res.json();
-      setForm((prev) => ({ ...prev, image: url }));
-    } else {
-      const err = await res.json();
-      alert(err.error || "上传失败");
+      if (res.ok) {
+        const { url, mediaType } = await res.json();
+        if (field === "video" || mediaType === "video") {
+          setForm((prev) => ({ ...prev, video: url, mediaType: "video" }));
+        } else {
+          setForm((prev) => ({ ...prev, image: url }));
+        }
+      } else {
+        const err = await res.json();
+        alert(err.error || "上传失败");
+      }
+    } finally {
+      setUploading(null);
+      e.target.value = "";
     }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (form.mediaType === "photo" && !form.image) {
+      alert("请上传照片作品");
+      return;
+    }
+    if (form.mediaType === "video" && !form.video) {
+      alert("请上传视频作品");
+      return;
+    }
 
     if (editingId) {
       await fetch("/api/portfolio", {
@@ -111,9 +138,11 @@ export default function AdminDashboard() {
       title: item.title,
       category: item.category,
       type: item.type,
+      mediaType: item.mediaType || "photo",
       school: item.school,
       description: item.description,
       image: item.image,
+      video: item.video || "",
       featured: item.featured,
     });
     setEditingId(item.id);
@@ -309,6 +338,27 @@ export default function AdminDashboard() {
                       ))}
                     </select>
                   </div>
+                  <div>
+                    <label className="mb-1 block text-sm text-gray-600">
+                      作品形式
+                    </label>
+                    <select
+                      value={form.mediaType}
+                      onChange={(e) =>
+                        setForm({
+                          ...form,
+                          mediaType: e.target.value as MediaType,
+                        })
+                      }
+                      className="w-full rounded-lg border px-3 py-2 text-sm"
+                    >
+                      {Object.entries(MEDIA_TYPE_LABELS).map(([k, v]) => (
+                        <option key={k} value={k}>
+                          {v}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                   <div className="sm:col-span-2">
                     <label className="mb-1 block text-sm text-gray-600">
                       作品描述
@@ -322,23 +372,88 @@ export default function AdminDashboard() {
                       rows={2}
                     />
                   </div>
-                  <div>
-                    <label className="mb-1 block text-sm text-gray-600">
-                      封面图片
-                    </label>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={handleUpload}
-                      className="w-full text-sm"
-                    />
-                    {form.image && (
-                      <p className="mt-1 text-xs text-green-600">
-                        已上传：{form.image}
+
+                  {form.mediaType === "photo" ? (
+                    <div className="sm:col-span-2">
+                      <label className="mb-1 block text-sm text-gray-600">
+                        上传照片 <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="file"
+                        accept="image/jpeg,image/png,image/webp,image/gif"
+                        onChange={(e) => handleUpload(e, "image")}
+                        className="w-full text-sm"
+                        disabled={uploading === "image"}
+                      />
+                      <p className="mt-1 text-xs text-gray-400">
+                        支持 JPG、PNG、WebP、GIF，最大 10MB
                       </p>
-                    )}
-                  </div>
-                  <div className="flex items-center gap-2 pt-6">
+                      {form.image && (
+                        <div className="mt-2 flex items-center gap-3">
+                          <div className="relative h-16 w-24 overflow-hidden rounded-lg">
+                            <Image
+                              src={form.image}
+                              alt="预览"
+                              fill
+                              className="object-cover"
+                            />
+                          </div>
+                          <p className="text-xs text-green-600">{form.image}</p>
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <>
+                      <div className="sm:col-span-2">
+                        <label className="mb-1 block text-sm text-gray-600">
+                          上传视频 <span className="text-red-500">*</span>
+                        </label>
+                        <input
+                          type="file"
+                          accept="video/mp4,video/webm,video/quicktime,video/x-msvideo"
+                          onChange={(e) => handleUpload(e, "video")}
+                          className="w-full text-sm"
+                          disabled={uploading === "video"}
+                        />
+                        <p className="mt-1 text-xs text-gray-400">
+                          支持 MP4、WebM、MOV，最大 100MB
+                        </p>
+                        {uploading === "video" && (
+                          <p className="mt-1 text-xs text-brand-600">视频上传中，请稍候...</p>
+                        )}
+                        {form.video && (
+                          <p className="mt-1 text-xs text-green-600">已上传：{form.video}</p>
+                        )}
+                      </div>
+                      <div className="sm:col-span-2">
+                        <label className="mb-1 block text-sm text-gray-600">
+                          视频封面图（选填）
+                        </label>
+                        <input
+                          type="file"
+                          accept="image/jpeg,image/png,image/webp,image/gif"
+                          onChange={(e) => handleUpload(e, "image")}
+                          className="w-full text-sm"
+                          disabled={uploading === "image"}
+                        />
+                        {form.image && (
+                          <div className="mt-2 flex items-center gap-3">
+                            <div className="relative h-16 w-24 overflow-hidden rounded-lg">
+                              <Image
+                                src={form.image}
+                                alt="封面预览"
+                                fill
+                                className="object-cover"
+                              />
+                            </div>
+                            <p className="text-xs text-green-600">{form.image}</p>
+                          </div>
+                        )}
+                      </div>
+                    </>
+                  )}
+
+                  <div className="flex items-center gap-2 sm:col-span-2">
                     <input
                       type="checkbox"
                       id="featured"
@@ -393,8 +508,11 @@ export default function AdminDashboard() {
                   <div className="min-w-0 flex-1">
                     <div className="font-semibold text-gray-900">
                       {item.title}
+                      <span className="ml-2 rounded bg-brand-100 px-1.5 py-0.5 text-xs text-brand-700">
+                        {MEDIA_TYPE_LABELS[item.mediaType || "photo"]}
+                      </span>
                       {item.featured && (
-                        <span className="ml-2 rounded bg-accent-500 px-1.5 py-0.5 text-xs text-white">
+                        <span className="ml-2 rounded bg-brand-500 px-1.5 py-0.5 text-xs text-white">
                           精选
                         </span>
                       )}

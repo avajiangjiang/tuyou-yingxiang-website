@@ -1,9 +1,14 @@
-import type { PortfolioCategory, PortfolioType } from "@/types";
+import type { PortfolioCategory, PortfolioType, MediaType } from "@/types";
 
 export const CATEGORY_LABELS: Record<PortfolioCategory, string> = {
   primary: "小学",
   middle: "初中",
   high: "高中",
+};
+
+export const MEDIA_TYPE_LABELS: Record<MediaType, string> = {
+  photo: "照片作品",
+  video: "视频作品",
 };
 
 export const TYPE_LABELS: Record<PortfolioType, string> = {
