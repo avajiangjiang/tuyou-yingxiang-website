@@ -40,6 +40,6 @@
   }
 
   .service-card-highlight {
-    @apply rounded-sm bg-brand-500 p-8 text-white shadow-lg shadow-brand-500/20;
+    @apply rounded-sm bg-brand-400 p-8 text-white shadow-lg shadow-brand-400/25;
   }
 }

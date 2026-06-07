@@ -91,7 +91,7 @@ export default function Products() {
                 key={pkg.name}
                 className={
                   pkg.featured
-                    ? "bg-brand-500 p-8 text-white"
+                    ? "bg-brand-400 p-8 text-white"
                     : "bg-cream p-8 ring-1 ring-dark/5"
                 }
               >

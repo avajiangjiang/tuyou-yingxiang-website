@@ -23,7 +23,7 @@ export default function Hero() {
           途优校园影像
         </h1>
 
-        <p className="mb-4 text-lg font-light text-brand-400 sm:text-xl">
+        <p className="mb-4 text-lg font-light text-brand-300 sm:text-xl">
           用镜头珍藏校园时光
         </p>
 
@@ -35,7 +35,7 @@ export default function Hero() {
         <div className="flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
           <a
             href="#portfolio"
-            className="min-w-[160px] bg-brand-500 px-8 py-3.5 text-sm font-semibold text-white transition hover:bg-brand-400"
+            className="min-w-[160px] bg-brand-400 px-8 py-3.5 text-sm font-semibold text-white transition hover:bg-brand-300"
           >
             查看作品案例
           </a>
