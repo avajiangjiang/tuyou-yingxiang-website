@@ -2,8 +2,8 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import Link from "next/link";
+import MediaPreview from "@/components/MediaPreview";
 import type { PortfolioItem, PartnerSchool, MediaType } from "@/types";
 import { CATEGORY_LABELS, TYPE_LABELS, MEDIA_TYPE_LABELS } from "@/lib/constants";
 
@@ -374,60 +374,30 @@ export default function AdminDashboard() {
                   </div>
 
                   {form.mediaType === "photo" ? (
-                    <div className="sm:col-span-2">
-                      <label className="mb-1 block text-sm text-gray-600">
-                        上传照片 <span className="text-red-500">*</span>
-                      </label>
-                      <input
-                        type="file"
-                        accept="image/jpeg,image/png,image/webp,image/gif"
-                        onChange={(e) => handleUpload(e, "image")}
-                        className="w-full text-sm"
-                        disabled={uploading === "image"}
-                      />
-                      <p className="mt-1 text-xs text-gray-400">
-                        支持 JPG、PNG、WebP、GIF，最大 10MB
-                      </p>
-                      {form.image && (
-                        <div className="mt-2 flex items-center gap-3">
-                          <div className="relative h-16 w-24 overflow-hidden rounded-lg">
-                            <Image
-                              src={form.image}
-                              alt="预览"
-                              fill
-                              className="object-cover"
-                            />
-                          </div>
-                          <p className="text-xs text-green-600">{form.image}</p>
-                        </div>
-                      )}
-                    </div>
-                  ) : (
-                    <>
-                      <div className="sm:col-span-2">
+                    <div className="sm:col-span-2 space-y-4">
+                      <div>
                         <label className="mb-1 block text-sm text-gray-600">
-                          上传视频 <span className="text-red-500">*</span>
+                          照片链接 <span className="text-red-500">*</span>
+                          <span className="ml-2 text-xs font-normal text-brand-600">
+                            推荐：上传到云存储后粘贴链接
+                          </span>
                         </label>
                         <input
-                          type="file"
-                          accept="video/mp4,video/webm,video/quicktime,video/x-msvideo"
-                          onChange={(e) => handleUpload(e, "video")}
-                          className="w-full text-sm"
-                          disabled={uploading === "video"}
+                          type="url"
+                          value={form.image}
+                          onChange={(e) =>
+                            setForm({ ...form, image: e.target.value.trim() })
+                          }
+                          placeholder="https://你的云存储.com/photo.jpg"
+                          className="w-full rounded-lg border px-3 py-2 text-sm"
                         />
                         <p className="mt-1 text-xs text-gray-400">
-                          支持 MP4、WebM、MOV，最大 100MB
+                          支持阿里云 OSS、腾讯云 COS、七牛云等 HTTPS 链接，稳定不占服务器空间
                         </p>
-                        {uploading === "video" && (
-                          <p className="mt-1 text-xs text-brand-600">视频上传中，请稍候...</p>
-                        )}
-                        {form.video && (
-                          <p className="mt-1 text-xs text-green-600">已上传：{form.video}</p>
-                        )}
                       </div>
-                      <div className="sm:col-span-2">
-                        <label className="mb-1 block text-sm text-gray-600">
-                          视频封面图（选填）
+                      <div>
+                        <label className="mb-1 block text-sm text-gray-500">
+                          或本地上传照片（备选）
                         </label>
                         <input
                           type="file"
@@ -436,17 +406,94 @@ export default function AdminDashboard() {
                           className="w-full text-sm"
                           disabled={uploading === "image"}
                         />
+                        <p className="mt-1 text-xs text-gray-400">
+                          本地开发可用，线上 Vercel 可能无法永久保存
+                        </p>
+                      </div>
+                      {form.image && (
+                        <div className="flex items-center gap-3">
+                          <div className="relative h-16 w-24 overflow-hidden rounded-lg bg-gray-100">
+                            <MediaPreview src={form.image} alt="预览" />
+                          </div>
+                          <p className="break-all text-xs text-green-600">{form.image}</p>
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <>
+                      <div className="sm:col-span-2 space-y-4">
+                        <div>
+                          <label className="mb-1 block text-sm text-gray-600">
+                            视频链接 <span className="text-red-500">*</span>
+                            <span className="ml-2 text-xs font-normal text-brand-600">
+                              推荐：上传到云存储后粘贴链接
+                            </span>
+                          </label>
+                          <input
+                            type="url"
+                            value={form.video}
+                            onChange={(e) =>
+                              setForm({ ...form, video: e.target.value.trim() })
+                            }
+                            placeholder="https://你的云存储.com/video.mp4"
+                            className="w-full rounded-lg border px-3 py-2 text-sm"
+                          />
+                          <p className="mt-1 text-xs text-gray-400">
+                            视频建议放云端（OSS/COS/七牛等），后台只存链接，播放更稳定
+                          </p>
+                        </div>
+                        <div>
+                          <label className="mb-1 block text-sm text-gray-500">
+                            或本地上传视频（备选）
+                          </label>
+                          <input
+                            type="file"
+                            accept="video/mp4,video/webm,video/quicktime,video/x-msvideo"
+                            onChange={(e) => handleUpload(e, "video")}
+                            className="w-full text-sm"
+                            disabled={uploading === "video"}
+                          />
+                          {uploading === "video" && (
+                            <p className="mt-1 text-xs text-brand-600">视频上传中，请稍候...</p>
+                          )}
+                        </div>
+                        {form.video && (
+                          <p className="break-all text-xs text-green-600">视频：{form.video}</p>
+                        )}
+                      </div>
+                      <div className="sm:col-span-2 space-y-4">
+                        <div>
+                          <label className="mb-1 block text-sm text-gray-600">
+                            封面图链接（选填）
+                          </label>
+                          <input
+                            type="url"
+                            value={form.image}
+                            onChange={(e) =>
+                              setForm({ ...form, image: e.target.value.trim() })
+                            }
+                            placeholder="https://你的云存储.com/cover.jpg"
+                            className="w-full rounded-lg border px-3 py-2 text-sm"
+                          />
+                        </div>
+                        <div>
+                          <label className="mb-1 block text-sm text-gray-500">
+                            或本地上传封面（备选）
+                          </label>
+                          <input
+                            type="file"
+                            accept="image/jpeg,image/png,image/webp,image/gif"
+                            onChange={(e) => handleUpload(e, "image")}
+                            className="w-full text-sm"
+                            disabled={uploading === "image"}
+                          />
+                        </div>
                         {form.image && (
-                          <div className="mt-2 flex items-center gap-3">
-                            <div className="relative h-16 w-24 overflow-hidden rounded-lg">
-                              <Image
-                                src={form.image}
-                                alt="封面预览"
-                                fill
-                                className="object-cover"
-                              />
+                          <div className="flex items-center gap-3">
+                            <div className="relative h-16 w-24 overflow-hidden rounded-lg bg-gray-100">
+                              <MediaPreview src={form.image} alt="封面预览" />
                             </div>
-                            <p className="text-xs text-green-600">{form.image}</p>
+                            <p className="break-all text-xs text-green-600">{form.image}</p>
                           </div>
                         )}
                       </div>
@@ -492,16 +539,14 @@ export default function AdminDashboard() {
                   className="flex items-center gap-4 rounded-xl bg-white p-4 shadow-sm"
                 >
                   <div className="relative h-16 w-24 shrink-0 overflow-hidden rounded-lg bg-brand-100">
-                    {item.image ? (
-                      <Image
-                        src={item.image}
+                    {item.image || item.mediaType === "photo" ? (
+                      <MediaPreview
+                        src={item.image || ""}
                         alt={item.title}
-                        fill
-                        className="object-cover"
                       />
                     ) : (
                       <div className="flex h-full items-center justify-center text-2xl opacity-30">
-                        📷
+                        🎬
                       </div>
                     )}
                   </div>

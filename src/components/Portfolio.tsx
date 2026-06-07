@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import SectionTitle from "@/components/SectionTitle";
+import MediaPreview from "@/components/MediaPreview";
 import type { PortfolioItem } from "@/types";
 import {
   CATEGORY_LABELS,
@@ -51,12 +51,10 @@ function PortfolioCard({ item }: { item: PortfolioItem }) {
               />
             ) : (
               <>
-                <Image
+                <MediaPreview
                   src={getItemImage(item)}
                   alt={item.title}
-                  fill
                   className="object-cover transition duration-500 group-hover:scale-105"
-                  sizes="(max-width: 768px) 100vw, 33vw"
                 />
                 <button
                   type="button"
@@ -74,12 +72,10 @@ function PortfolioCard({ item }: { item: PortfolioItem }) {
             )}
           </>
         ) : (
-          <Image
+          <MediaPreview
             src={getItemImage(item)}
             alt={item.title}
-            fill
             className="object-cover transition duration-500 group-hover:scale-110"
-            sizes="(max-width: 768px) 100vw, 33vw"
           />
         )}
 
