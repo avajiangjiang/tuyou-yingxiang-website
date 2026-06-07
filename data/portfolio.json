@@ -1,0 +1,37 @@
+{
+  "items": [
+    {
+      "id": "demo-1",
+      "title": "某小学毕业典礼拍摄",
+      "category": "primary",
+      "type": "activity",
+      "school": "广州市某小学",
+      "description": "全程跟拍毕业典礼，记录学子难忘时刻",
+      "image": "",
+      "featured": true,
+      "createdAt": "2025-06-01"
+    },
+    {
+      "id": "demo-2",
+      "title": "某中学毕业微电影",
+      "category": "middle",
+      "type": "film",
+      "school": "深圳市某中学",
+      "description": "电影级制作，记录独一无二的青春故事",
+      "image": "",
+      "featured": true,
+      "createdAt": "2025-05-15"
+    },
+    {
+      "id": "demo-3",
+      "title": "某高中毕业相册",
+      "category": "high",
+      "type": "album",
+      "school": "佛山市某高中",
+      "description": "个性化版面设计，高品质印刷工艺",
+      "image": "",
+      "featured": true,
+      "createdAt": "2025-04-20"
+    }
+  ]
+}

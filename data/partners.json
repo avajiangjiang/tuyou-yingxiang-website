@@ -1,0 +1,10 @@
+{
+  "schools": [
+    { "id": "p1", "name": "广州市某实验小学", "level": "primary" },
+    { "id": "p2", "name": "深圳市某外国语学校", "level": "middle" },
+    { "id": "p3", "name": "佛山市某高级中学", "level": "high" },
+    { "id": "p4", "name": "东莞市某中心小学", "level": "primary" },
+    { "id": "p5", "name": "惠州市某中学", "level": "middle" },
+    { "id": "p6", "name": "中山市某实验学校", "level": "high" }
+  ]
+}
