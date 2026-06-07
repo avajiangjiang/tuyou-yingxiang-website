@@ -17,7 +17,7 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -26,26 +26,32 @@ export default function Header() {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-white/95 shadow-md shadow-brand-500/5 backdrop-blur-md"
-          : "bg-gradient-to-b from-black/40 to-transparent"
+          ? "bg-white/97 shadow-sm backdrop-blur-md"
+          : "bg-transparent"
       }`}
     >
       <div className="container-max flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link href="/" className="flex items-center gap-2.5">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-500 text-sm font-bold text-white shadow-md shadow-brand-500/30">
+          <div
+            className={`flex h-8 w-8 items-center justify-center text-xs font-bold ${
+              scrolled
+                ? "bg-brand-500 text-white"
+                : "bg-brand-500 text-white"
+            }`}
+          >
             途
           </div>
           <div>
             <div
               className={`text-sm font-bold leading-tight ${
-                scrolled ? "text-brand-800" : "text-white"
+                scrolled ? "text-dark" : "text-white"
               }`}
             >
               途优校园影像
             </div>
             <div
-              className={`text-xs ${
-                scrolled ? "text-gray-500" : "text-white/70"
+              className={`text-[10px] tracking-wider ${
+                scrolled ? "text-dark/40" : "text-white/50"
               }`}
             >
               TUYOU CAMPUS IMAGE
@@ -58,10 +64,10 @@ export default function Header() {
             <a
               key={item.href}
               href={item.href}
-              className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+              className={`px-3 py-2 text-sm transition-colors ${
                 scrolled
-                  ? "text-gray-700 hover:bg-brand-50 hover:text-brand-600"
-                  : "text-white/90 hover:bg-white/10 hover:text-white"
+                  ? "text-dark/70 hover:text-brand-500"
+                  : "text-white/80 hover:text-brand-400"
               }`}
             >
               {item.label}
@@ -70,13 +76,13 @@ export default function Header() {
         </nav>
 
         <button
-          className={`rounded-lg p-2 lg:hidden ${
-            scrolled ? "text-gray-800 hover:bg-brand-50" : "text-white hover:bg-white/10"
+          className={`p-2 lg:hidden ${
+            scrolled ? "text-dark" : "text-white"
           }`}
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="菜单"
         >
-          <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             {menuOpen ? (
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             ) : (
@@ -87,12 +93,12 @@ export default function Header() {
       </div>
 
       {menuOpen && (
-        <div className="border-t border-brand-100 bg-white px-4 py-4 shadow-lg lg:hidden">
+        <div className="border-t border-dark/5 bg-white px-4 py-3 shadow-lg lg:hidden">
           {NAV_ITEMS.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="block rounded-lg px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-brand-50 hover:text-brand-600"
+              className="block px-3 py-2.5 text-sm text-dark/70 hover:text-brand-500"
               onClick={() => setMenuOpen(false)}
             >
               {item.label}

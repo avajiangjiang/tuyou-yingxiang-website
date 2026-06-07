@@ -87,7 +87,6 @@ export const SERVICES = [
     description:
       "以电影级制作标准，为毕业班级拍摄专属微电影。脚本策划、专业拍摄、精致剪辑，记录独一无二的青春故事。",
     icon: "🎞️",
-    highlight: true,
   },
 ];
 

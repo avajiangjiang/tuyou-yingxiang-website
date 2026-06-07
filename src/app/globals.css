@@ -8,28 +8,38 @@
   }
 
   body {
-    @apply bg-white text-gray-800 antialiased;
+    @apply bg-cream text-dark antialiased;
   }
 }
 
 @layer utilities {
   .section-padding {
-    @apply px-4 py-20 sm:px-6 lg:px-8 lg:py-28;
+    @apply px-4 py-20 sm:px-6 lg:px-8 lg:py-24;
   }
 
   .container-max {
     @apply mx-auto max-w-7xl;
   }
 
-  .section-label {
-    @apply mb-2 inline-block text-sm font-semibold tracking-widest text-brand-600 uppercase;
-  }
-
-  .section-title {
-    @apply text-3xl font-bold text-gray-900 sm:text-4xl;
-  }
-
   .card-hover {
-    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-lg;
+    @apply transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg;
+  }
+}
+
+@layer components {
+  .section-bar {
+    @apply h-8 w-1 shrink-0 rounded-full bg-brand-500;
+  }
+
+  .section-number {
+    @apply text-sm font-bold tracking-widest text-brand-500;
+  }
+
+  .service-card {
+    @apply rounded-sm bg-white p-8 shadow-sm ring-1 ring-black/5 transition hover:shadow-md;
+  }
+
+  .service-card-highlight {
+    @apply rounded-sm bg-brand-500 p-8 text-white shadow-lg shadow-brand-500/20;
   }
 }

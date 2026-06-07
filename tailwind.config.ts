@@ -10,22 +10,26 @@ const config: Config = {
     extend: {
       colors: {
         brand: {
-          50: "#fff8f3",
-          100: "#ffedd9",
-          200: "#ffd4b0",
-          300: "#ffb680",
-          400: "#ff9147",
-          500: "#f37021",
-          600: "#e85d0a",
-          700: "#c44a08",
-          800: "#9a3b0c",
-          900: "#7c3210",
-          950: "#431705",
+          50: "#fdf6f0",
+          100: "#f9e8d9",
+          200: "#f2cfa8",
+          300: "#e8a96a",
+          400: "#de8438",
+          500: "#d47b30",
+          600: "#b86520",
+          700: "#944f18",
+          800: "#6e3a12",
+          900: "#4a260c",
+          950: "#2d1607",
         },
-        hermes: {
-          DEFAULT: "#f37021",
-          light: "#ff9147",
-          dark: "#c44a08",
+        dark: {
+          DEFAULT: "#1c1b19",
+          light: "#2a2826",
+          muted: "#3d3a37",
+        },
+        cream: {
+          DEFAULT: "#f5f5f0",
+          dark: "#ebe8e0",
         },
       },
       fontFamily: {
@@ -36,10 +40,6 @@ const config: Config = {
           "Arial",
           "sans-serif",
         ],
-      },
-      backgroundImage: {
-        "hero-pattern":
-          "radial-gradient(circle at 20% 50%, rgba(243,112,33,0.15) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(243,112,33,0.1) 0%, transparent 50%)",
       },
     },
   },
