@@ -66,7 +66,7 @@ export default function About({ stats }: AboutProps) {
             ].map((item) => (
               <div
                 key={item.num}
-                className="flex flex-col items-center justify-center rounded-2xl bg-brand-600 p-8 text-white"
+                className="flex flex-col items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 p-8 text-white shadow-lg shadow-brand-500/20 transition hover:shadow-xl"
               >
                 <span className="text-3xl font-bold opacity-30">{item.num}</span>
                 <span className="mt-2 text-lg font-semibold">{item.label}</span>
@@ -83,7 +83,7 @@ export default function About({ stats }: AboutProps) {
             {ADVANTAGES.map((item) => (
               <div
                 key={item.title}
-                className="rounded-2xl bg-white p-6 shadow-sm transition hover:shadow-md"
+                className="rounded-2xl border border-transparent bg-white p-6 shadow-sm transition hover:border-brand-200 hover:shadow-md"
               >
                 <div className="mb-3 text-3xl">{item.icon}</div>
                 <h4 className="mb-2 font-bold text-gray-900">{item.title}</h4>
@@ -106,7 +106,7 @@ export default function About({ stats }: AboutProps) {
             {statItems.map((item) => (
               <div
                 key={item.label}
-                className="rounded-2xl bg-brand-600 p-6 text-center text-white"
+                className="rounded-2xl bg-gradient-to-br from-brand-500 to-brand-600 p-6 text-center text-white shadow-md"
               >
                 <div className="text-2xl font-bold sm:text-3xl">{item.value}</div>
                 <div className="mt-2 text-xs text-brand-200 sm:text-sm">

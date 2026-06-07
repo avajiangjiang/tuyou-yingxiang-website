@@ -36,7 +36,7 @@ export default function Contact({ contact }: ContactProps) {
           ))}
         </div>
 
-        <div className="mx-auto max-w-2xl rounded-2xl bg-gradient-to-br from-brand-600 to-brand-800 p-8 text-center text-white sm:p-12">
+        <div className="mx-auto max-w-2xl rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 p-8 text-center text-white shadow-xl shadow-brand-500/20 sm:p-12">
           <h3 className="mb-6 text-2xl font-bold">合作咨询</h3>
           <div className="space-y-4">
             <div>

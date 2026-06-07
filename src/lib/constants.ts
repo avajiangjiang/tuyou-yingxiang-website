@@ -13,6 +13,17 @@ export const TYPE_LABELS: Record<PortfolioType, string> = {
   film: "毕业微电影",
 };
 
+export const PORTFOLIO_PLACEHOLDERS: Record<PortfolioType, string> = {
+  activity:
+    "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&q=80",
+  promo:
+    "https://images.unsplash.com/photo-1497633769976-78943ad79827?w=800&q=80",
+  album:
+    "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&q=80",
+  film:
+    "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=800&q=80",
+};
+
 export const ADVANTAGES = [
   {
     title: "专业团队",

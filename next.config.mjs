@@ -9,7 +9,12 @@ const nextConfig = {
   }),
   images: {
     unoptimized: isGithubPages,
-    remotePatterns: [],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
+    ],
   },
 };
 

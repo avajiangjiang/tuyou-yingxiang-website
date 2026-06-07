@@ -20,4 +20,16 @@
   .container-max {
     @apply mx-auto max-w-7xl;
   }
+
+  .section-label {
+    @apply mb-2 inline-block text-sm font-semibold tracking-widest text-brand-600 uppercase;
+  }
+
+  .section-title {
+    @apply text-3xl font-bold text-gray-900 sm:text-4xl;
+  }
+
+  .card-hover {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-lg;
+  }
 }

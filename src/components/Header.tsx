@@ -26,13 +26,13 @@ export default function Header() {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-white/95 shadow-md backdrop-blur-md"
-          : "bg-transparent"
+          ? "bg-white/95 shadow-md shadow-brand-500/5 backdrop-blur-md"
+          : "bg-gradient-to-b from-black/40 to-transparent"
       }`}
     >
       <div className="container-max flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-600 text-sm font-bold text-white">
+        <Link href="/" className="flex items-center gap-2.5">
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-500 text-sm font-bold text-white shadow-md shadow-brand-500/30">
             途
           </div>
           <div>
@@ -53,13 +53,15 @@ export default function Header() {
           </div>
         </Link>
 
-        <nav className="hidden items-center gap-6 lg:flex">
+        <nav className="hidden items-center gap-1 lg:flex">
           {NAV_ITEMS.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className={`text-sm font-medium transition-colors hover:text-brand-500 ${
-                scrolled ? "text-gray-700" : "text-white/90"
+              className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                scrolled
+                  ? "text-gray-700 hover:bg-brand-50 hover:text-brand-600"
+                  : "text-white/90 hover:bg-white/10 hover:text-white"
               }`}
             >
               {item.label}
@@ -68,7 +70,9 @@ export default function Header() {
         </nav>
 
         <button
-          className={`lg:hidden ${scrolled ? "text-gray-800" : "text-white"}`}
+          className={`rounded-lg p-2 lg:hidden ${
+            scrolled ? "text-gray-800 hover:bg-brand-50" : "text-white hover:bg-white/10"
+          }`}
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="菜单"
         >
@@ -83,12 +87,12 @@ export default function Header() {
       </div>
 
       {menuOpen && (
-        <div className="border-t bg-white px-4 py-4 shadow-lg lg:hidden">
+        <div className="border-t border-brand-100 bg-white px-4 py-4 shadow-lg lg:hidden">
           {NAV_ITEMS.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="block py-2 text-sm font-medium text-gray-700 hover:text-brand-600"
+              className="block rounded-lg px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-brand-50 hover:text-brand-600"
               onClick={() => setMenuOpen(false)}
             >
               {item.label}

@@ -20,8 +20,8 @@ export default function Services() {
               key={service.title}
               className={`group relative overflow-hidden rounded-2xl p-8 transition hover:shadow-xl ${
                 service.highlight
-                  ? "bg-gradient-to-br from-brand-600 to-brand-800 text-white"
-                  : "border border-gray-100 bg-white shadow-sm"
+                  ? "bg-gradient-to-br from-brand-500 to-brand-700 text-white shadow-lg shadow-brand-500/20"
+                  : "border border-gray-100 bg-white shadow-sm hover:border-brand-100"
               }`}
             >
               <div className="mb-4 text-4xl">{service.icon}</div>
@@ -32,7 +32,7 @@ export default function Services() {
               >
                 {service.title}
                 {service.highlight && (
-                  <span className="ml-2 rounded-full bg-accent-500 px-2 py-0.5 text-xs font-medium">
+                  <span className="ml-2 rounded-full bg-white/20 px-2 py-0.5 text-xs font-medium backdrop-blur-sm">
                     核心产品
                   </span>
                 )}
