@@ -65,12 +65,18 @@ export default function About({ stats }: AboutProps) {
               ))}
             </div>
 
-            {/* 手机：横向滑动一排；平板以上：四列等宽 */}
-            <div className="mobile-scroll-x sm:grid sm:grid-cols-4 sm:gap-2.5">
+            <div className="grid grid-cols-4 gap-2 sm:gap-2.5">
               {BUSINESS_ITEMS.map((item) => (
-                <div key={item.num} className="business-card">
-                  <span className="business-card-num">{item.num}</span>
-                  <span className="business-card-label">{item.label}</span>
+                <div
+                  key={item.num}
+                  className="flex flex-col items-center justify-center rounded-xl bg-dark px-1 py-3 text-center sm:px-2 sm:py-4"
+                >
+                  <span className="text-lg font-bold text-brand-400 sm:text-2xl">
+                    {item.num}
+                  </span>
+                  <span className="mt-1 text-[10px] font-semibold leading-snug text-white sm:mt-1.5 sm:text-xs">
+                    {item.label}
+                  </span>
                 </div>
               ))}
             </div>

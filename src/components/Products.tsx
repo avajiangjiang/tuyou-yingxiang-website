@@ -104,26 +104,26 @@ export default function Products() {
 
         <div className="mt-12 sm:mt-24">
           <SectionTitle number="03" title="部份相册展示" align="center" />
-          <div className="mt-6 grid gap-3 sm:mt-12 sm:gap-4 lg:grid-cols-3">
+          <div className="mt-6 grid grid-cols-3 gap-2 sm:mt-12 sm:gap-4">
             {ALBUM_PACKAGES.map((pkg) => (
               <div
                 key={pkg.name}
                 className={
                   pkg.featured
-                    ? "rounded-xl bg-brand-400 p-5 text-white sm:rounded-none sm:p-8"
-                    : "rounded-xl bg-cream p-5 ring-1 ring-dark/5 sm:rounded-none sm:p-8"
+                    ? "rounded-xl bg-brand-400 p-3 text-white sm:rounded-none sm:p-8"
+                    : "rounded-xl bg-cream p-3 ring-1 ring-dark/5 sm:rounded-none sm:p-8"
                 }
               >
-                <div className="mb-4 border-b border-current/20 pb-3 sm:mb-6 sm:pb-4">
+                <div className="mb-3 border-b border-current/20 pb-2 sm:mb-6 sm:pb-4">
                   <span
-                    className={`text-3xl font-bold sm:text-4xl ${
+                    className={`text-2xl font-bold sm:text-4xl ${
                       pkg.featured ? "text-white" : "text-brand-500"
                     }`}
                   >
                     {pkg.name}
                   </span>
                 </div>
-                <div className="space-y-3 text-[13px] sm:space-y-4 sm:text-sm">
+                <div className="space-y-2 text-[11px] sm:space-y-4 sm:text-sm">
                   <p className={pkg.featured ? "text-white/80" : "text-dark/60"}>
                     {pkg.photos}
                   </p>
