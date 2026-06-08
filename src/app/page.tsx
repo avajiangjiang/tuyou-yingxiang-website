@@ -4,16 +4,14 @@ import About from "@/components/About";
 import Services from "@/components/Services";
 import Products from "@/components/Products";
 import Portfolio from "@/components/Portfolio";
-import Partners from "@/components/Partners";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-import { getSiteConfig, getPortfolio, getPartners } from "@/lib/data";
+import { getSiteConfig, getPortfolio } from "@/lib/data";
 
 export default async function Home() {
-  const [siteConfig, portfolio, partners] = await Promise.all([
+  const [siteConfig, portfolio] = await Promise.all([
     getSiteConfig(),
     getPortfolio(),
-    getPartners(),
   ]);
 
   return (
@@ -25,7 +23,6 @@ export default async function Home() {
         <Services />
         <Products />
         <Portfolio items={portfolio.items} />
-        <Partners schools={partners.schools} />
         <Contact contact={siteConfig.contact} />
       </main>
       <Footer />

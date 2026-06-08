@@ -23,10 +23,12 @@ const CATEGORY_FILTERS = [
 ] as const;
 
 const MEDIA_FILTERS = [
-  { key: "all", label: "全部作品" },
+  { key: "all", label: "全部" },
   { key: "photo", label: "照片" },
   { key: "video", label: "视频" },
 ] as const;
+
+const MOBILE_INITIAL = 6;
 
 function getItemImage(item: PortfolioItem): string {
   return item.image || PORTFOLIO_PLACEHOLDERS[item.type];
@@ -37,8 +39,8 @@ function PortfolioCard({ item }: { item: PortfolioItem }) {
   const isVideo = item.mediaType === "video" && item.video;
 
   return (
-    <div className="card-hover group overflow-hidden bg-dark-light ring-1 ring-white/10">
-      <div className="relative aspect-[4/3] overflow-hidden bg-black">
+    <div className="card-hover group overflow-hidden rounded-xl bg-dark-light ring-1 ring-white/10 sm:rounded-none">
+      <div className="relative aspect-[16/10] overflow-hidden bg-black sm:aspect-[4/3]">
         {isVideo ? (
           <>
             {playing ? (
@@ -46,6 +48,7 @@ function PortfolioCard({ item }: { item: PortfolioItem }) {
                 src={item.video}
                 controls
                 autoPlay
+                playsInline
                 className="h-full w-full object-contain"
                 poster={getItemImage(item)}
               />
@@ -59,11 +62,11 @@ function PortfolioCard({ item }: { item: PortfolioItem }) {
                 <button
                   type="button"
                   onClick={() => setPlaying(true)}
-                  className="absolute inset-0 flex items-center justify-center bg-black/30 transition hover:bg-black/40"
+                  className="absolute inset-0 flex items-center justify-center bg-black/30 transition active:bg-black/40"
                   aria-label="播放视频"
                 >
-                  <span className="flex h-16 w-16 items-center justify-center rounded-full bg-brand-500/90 text-white shadow-lg backdrop-blur-sm transition group-hover:scale-110">
-                    <svg className="ml-1 h-7 w-7" fill="currentColor" viewBox="0 0 24 24">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-500/90 text-white shadow-lg backdrop-blur-sm">
+                    <svg className="ml-0.5 h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M8 5v14l11-7z" />
                     </svg>
                   </span>
@@ -79,29 +82,35 @@ function PortfolioCard({ item }: { item: PortfolioItem }) {
           />
         )}
 
-        <div className="absolute left-3 top-3 flex flex-wrap gap-1.5">
-          <span className="bg-brand-500 px-2 py-0.5 text-xs font-medium text-white">
+        <div className="absolute left-2.5 top-2.5 flex flex-wrap gap-1">
+          <span className="rounded-md bg-brand-500 px-2 py-0.5 text-[11px] font-medium text-white">
             {CATEGORY_LABELS[item.category]}
           </span>
-          <span className="bg-white/90 px-2 py-0.5 text-xs font-medium text-dark">
+          <span className="rounded-md bg-white/90 px-2 py-0.5 text-[11px] font-medium text-dark">
             {TYPE_LABELS[item.type]}
           </span>
-          <span className="bg-dark/70 px-2 py-0.5 text-xs font-medium text-white">
+          <span className="hidden rounded-md bg-dark/70 px-2 py-0.5 text-[11px] font-medium text-white sm:inline">
             {MEDIA_TYPE_LABELS[item.mediaType]}
           </span>
         </div>
 
         {item.featured && (
-          <div className="absolute right-3 top-3 bg-brand-500 px-2 py-0.5 text-xs font-medium text-white">
+          <div className="absolute right-2.5 top-2.5 rounded-md bg-brand-500 px-2 py-0.5 text-[11px] font-medium text-white">
             精选
           </div>
         )}
       </div>
 
-      <div className="p-5">
-        <h3 className="mb-1 font-bold text-white">{item.title}</h3>
-        <p className="mb-2 text-sm font-medium text-brand-400">{item.school}</p>
-        <p className="text-sm leading-relaxed text-white/50">{item.description}</p>
+      <div className="p-4 sm:p-5">
+        <h3 className="text-sm font-bold leading-snug text-white sm:text-base">
+          {item.title}
+        </h3>
+        <p className="mt-1 text-xs font-medium text-brand-400 sm:text-sm">
+          {item.school}
+        </p>
+        <p className="mt-1.5 line-clamp-2 text-[13px] leading-relaxed text-white/50 sm:line-clamp-none sm:text-sm">
+          {item.description}
+        </p>
       </div>
     </div>
   );
@@ -110,6 +119,7 @@ function PortfolioCard({ item }: { item: PortfolioItem }) {
 export default function Portfolio({ items }: PortfolioProps) {
   const [categoryFilter, setCategoryFilter] = useState<string>("all");
   const [mediaFilter, setMediaFilter] = useState<string>("all");
+  const [showAll, setShowAll] = useState(false);
 
   const filtered = items.filter((item) => {
     const matchCategory =
@@ -118,6 +128,20 @@ export default function Portfolio({ items }: PortfolioProps) {
       mediaFilter === "all" || item.mediaType === mediaFilter;
     return matchCategory && matchMedia;
   });
+
+  const visibleItems =
+    showAll || filtered.length <= MOBILE_INITIAL
+      ? filtered
+      : filtered.slice(0, MOBILE_INITIAL);
+
+  const handleFilterChange = (
+    type: "category" | "media",
+    value: string
+  ) => {
+    setShowAll(false);
+    if (type === "category") setCategoryFilter(value);
+    else setMediaFilter(value);
+  };
 
   return (
     <section id="portfolio" className="section-padding bg-dark">
@@ -130,15 +154,15 @@ export default function Portfolio({ items }: PortfolioProps) {
           theme="dark"
         />
 
-        <div className="mt-10 flex flex-wrap justify-center gap-2">
+        <div className="mobile-scroll-x mt-6 sm:mt-10 sm:flex sm:flex-wrap sm:justify-center sm:gap-2">
           {MEDIA_FILTERS.map((f) => (
             <button
               key={f.key}
-              onClick={() => setMediaFilter(f.key)}
-              className={`px-5 py-2 text-sm font-medium transition ${
+              onClick={() => handleFilterChange("media", f.key)}
+              className={`mobile-chip ${
                 mediaFilter === f.key
                   ? "bg-brand-500 text-white"
-                  : "border border-white/15 text-white/60 hover:border-brand-500 hover:text-brand-400"
+                  : "border border-white/15 text-white/70 active:border-brand-500 sm:hover:border-brand-500 sm:hover:text-brand-400"
               }`}
             >
               {f.label}
@@ -146,15 +170,15 @@ export default function Portfolio({ items }: PortfolioProps) {
           ))}
         </div>
 
-        <div className="mt-4 flex flex-wrap justify-center gap-2">
+        <div className="mobile-scroll-x mt-2.5 sm:mt-3 sm:flex sm:flex-wrap sm:justify-center sm:gap-2">
           {CATEGORY_FILTERS.map((f) => (
             <button
               key={f.key}
-              onClick={() => setCategoryFilter(f.key)}
-              className={`px-4 py-1.5 text-xs transition ${
+              onClick={() => handleFilterChange("category", f.key)}
+              className={`mobile-chip text-xs ${
                 categoryFilter === f.key
-                  ? "text-brand-400 underline underline-offset-4"
-                  : "text-white/40 hover:text-white/70"
+                  ? "bg-white/10 text-brand-400 ring-1 ring-brand-400/50"
+                  : "text-white/50 active:text-white/70 sm:hover:text-white/70"
               }`}
             >
               {f.label}
@@ -163,15 +187,29 @@ export default function Portfolio({ items }: PortfolioProps) {
         </div>
 
         {filtered.length === 0 ? (
-          <div className="py-20 text-center text-white/30">
+          <div className="py-14 text-center text-sm text-white/30 sm:py-20">
             暂无该分类作品，敬请期待
           </div>
         ) : (
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {filtered.map((item) => (
-              <PortfolioCard key={item.id} item={item} />
-            ))}
-          </div>
+          <>
+            <div className="mt-6 grid gap-3 sm:mt-10 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
+              {visibleItems.map((item) => (
+                <PortfolioCard key={item.id} item={item} />
+              ))}
+            </div>
+
+            {!showAll && filtered.length > MOBILE_INITIAL && (
+              <div className="mt-6 text-center sm:hidden">
+                <button
+                  type="button"
+                  onClick={() => setShowAll(true)}
+                  className="rounded-full border border-white/20 px-8 py-3 text-sm font-medium text-white/80 active:bg-white/10"
+                >
+                  查看更多（{filtered.length - MOBILE_INITIAL}）
+                </button>
+              </div>
+            )}
+          </>
         )}
       </div>
     </section>

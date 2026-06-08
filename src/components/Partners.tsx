@@ -17,17 +17,19 @@ export default function Partners({ schools }: PartnersProps) {
           align="center"
         />
 
-        <div className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 grid gap-2.5 sm:mt-12 sm:grid-cols-2 sm:gap-3 lg:grid-cols-3">
           {schools.map((school) => (
             <div
               key={school.id}
-              className="flex items-center gap-4 bg-white p-5 ring-1 ring-dark/5 transition hover:ring-brand-500/30"
+              className="flex items-center gap-3 rounded-xl bg-white p-4 ring-1 ring-dark/5 sm:gap-4 sm:p-5"
             >
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center bg-brand-500 text-sm font-bold text-white">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-400 text-sm font-bold text-white sm:h-11 sm:w-11">
                 {school.name.charAt(0)}
               </div>
-              <div>
-                <div className="font-semibold text-dark">{school.name}</div>
+              <div className="min-w-0">
+                <div className="truncate text-sm font-semibold text-dark sm:text-base">
+                  {school.name}
+                </div>
                 <div className="text-xs text-dark/45">
                   {CATEGORY_LABELS[school.level]}
                 </div>

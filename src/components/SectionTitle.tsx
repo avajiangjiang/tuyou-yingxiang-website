@@ -19,7 +19,7 @@ export default function SectionTitle({
   return (
     <div className={isCenter ? "text-center" : ""}>
       <div
-        className={`mb-4 flex items-center gap-3 ${
+        className={`mb-3 flex items-center gap-2.5 sm:mb-4 sm:gap-3 ${
           isCenter ? "justify-center" : ""
         }`}
       >
@@ -27,7 +27,7 @@ export default function SectionTitle({
         <span className="section-number">{number}</span>
       </div>
       <h2
-        className={`text-2xl font-bold sm:text-3xl lg:text-4xl ${
+        className={`text-[1.35rem] font-bold leading-snug sm:text-3xl lg:text-4xl ${
           isDark ? "text-white" : "text-dark"
         }`}
       >
@@ -35,7 +35,7 @@ export default function SectionTitle({
       </h2>
       {subtitle && (
         <p
-          className={`mt-3 text-sm sm:text-base ${
+          className={`mt-2 text-[13px] leading-relaxed sm:mt-3 sm:text-base ${
             isDark ? "text-white/50" : "text-dark/50"
           }`}
         >
