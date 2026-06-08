@@ -9,10 +9,13 @@ interface PortfolioProps {
   items: PortfolioItem[];
 }
 
-const CATEGORY_TABS: { key: PortfolioCategory; label: string }[] = [
+type PortfolioTab = PortfolioCategory | "special";
+
+const CATEGORY_TABS: { key: PortfolioTab; label: string }[] = [
   { key: "primary", label: "小学" },
   { key: "middle", label: "初中" },
   { key: "high", label: "高中" },
+  { key: "special", label: "校园活动及专题" },
 ];
 
 function getItemImage(item: PortfolioItem): string {
@@ -75,10 +78,19 @@ function GalleryCard({ item }: { item: PortfolioItem }) {
   );
 }
 
-export default function Portfolio({ items }: PortfolioProps) {
-  const [activeTab, setActiveTab] = useState<PortfolioCategory>("primary");
+function filterItems(items: PortfolioItem[], tab: PortfolioTab): PortfolioItem[] {
+  if (tab === "special") {
+    return items.filter(
+      (item) => item.type === "activity" || item.type === "promo"
+    );
+  }
+  return items.filter((item) => item.category === tab);
+}
 
-  const filtered = items.filter((item) => item.category === activeTab);
+export default function Portfolio({ items }: PortfolioProps) {
+  const [activeTab, setActiveTab] = useState<PortfolioTab>("primary");
+
+  const filtered = filterItems(items, activeTab);
 
   return (
     <section id="portfolio" className="section-padding bg-white">
@@ -92,13 +104,13 @@ export default function Portfolio({ items }: PortfolioProps) {
           </h2>
         </div>
 
-        <div className="mt-6 flex items-center justify-center gap-6 border-b border-dark/10 sm:mt-8 sm:gap-10">
+        <div className="mobile-scroll-x mt-6 border-b border-dark/10 sm:mt-8 sm:justify-center">
           {CATEGORY_TABS.map((tab) => (
             <button
               key={tab.key}
               type="button"
               onClick={() => setActiveTab(tab.key)}
-              className={`relative pb-3 text-sm font-medium transition sm:text-base ${
+              className={`relative shrink-0 px-1 pb-3 text-sm font-medium transition sm:px-2 sm:text-base ${
                 activeTab === tab.key
                   ? "text-dark"
                   : "text-dark/40 active:text-dark/60"
