@@ -1,10 +1,9 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
-import Services from "@/components/Services";
 import Products from "@/components/Products";
 import Portfolio from "@/components/Portfolio";
-import Contact from "@/components/Contact";
+import FilmShowcase from "@/components/FilmShowcase";
 import Footer from "@/components/Footer";
 import { getSiteConfig, getPortfolio } from "@/lib/data";
 
@@ -20,10 +19,9 @@ export default async function Home() {
       <main>
         <Hero />
         <About stats={siteConfig.stats} />
-        <Services />
         <Products />
         <Portfolio items={portfolio.items} />
-        <Contact contact={siteConfig.contact} />
+        <FilmShowcase items={portfolio.items} />
       </main>
       <Footer />
     </>

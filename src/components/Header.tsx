@@ -5,10 +5,9 @@ import Link from "next/link";
 
 const NAV_ITEMS = [
   { href: "#about", label: "关于途优" },
-  { href: "#services", label: "业务范围" },
-  { href: "#products", label: "核心产品" },
-  { href: "#portfolio", label: "作品案例" },
-  { href: "#contact", label: "合作咨询" },
+  { href: "#products", label: "毕业相册" },
+  { href: "#portfolio", label: "作品展示" },
+  { href: "#films", label: "微电影" },
 ];
 
 export default function Header() {

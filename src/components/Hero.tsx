@@ -39,10 +39,10 @@ export default function Hero() {
             查看作品案例
           </a>
           <a
-            href="#contact"
+            href="#films"
             className="w-full rounded-lg border border-white/25 py-3.5 text-sm font-semibold text-white transition active:bg-white/10 sm:w-auto sm:min-w-[160px] sm:rounded-none sm:px-8"
           >
-            合作咨询
+            微电影展示
           </a>
         </div>
       </div>

@@ -259,6 +259,84 @@
       "video": "",
       "featured": true,
       "createdAt": "2024-06-01"
+    },
+    {
+      "id": "demo-21",
+      "title": "某小学开学典礼拍摄",
+      "category": "primary",
+      "type": "activity",
+      "mediaType": "photo",
+      "school": "广州市某小学",
+      "description": "记录新学期开学典礼的庄重与喜悦",
+      "image": "",
+      "video": "",
+      "featured": false,
+      "createdAt": "2024-05-20"
+    },
+    {
+      "id": "film-4",
+      "title": "某小学毕业微电影《童年印记》",
+      "category": "primary",
+      "type": "film",
+      "mediaType": "video",
+      "school": "东莞市某小学",
+      "description": "用影像定格六年的纯真与欢笑",
+      "image": "",
+      "video": "",
+      "featured": false,
+      "createdAt": "2024-05-01"
+    },
+    {
+      "id": "film-5",
+      "title": "某高中毕业微电影《追光者》",
+      "category": "high",
+      "type": "film",
+      "mediaType": "video",
+      "school": "广州市某高中",
+      "description": "青春励志主题，致敬每一位追光的少年",
+      "image": "",
+      "video": "",
+      "featured": true,
+      "createdAt": "2024-04-15"
+    },
+    {
+      "id": "film-6",
+      "title": "某初中毕业微电影《同桌的你》",
+      "category": "middle",
+      "type": "film",
+      "mediaType": "video",
+      "school": "佛山市某初中",
+      "description": "温情叙事，记录同窗三年的深厚情谊",
+      "image": "",
+      "video": "",
+      "featured": false,
+      "createdAt": "2024-03-28"
+    },
+    {
+      "id": "film-7",
+      "title": "某高中毕业微电影《明天你好》",
+      "category": "high",
+      "type": "film",
+      "mediaType": "video",
+      "school": "深圳市某高中",
+      "description": "告别与启程，献给每一个即将远行的毕业生",
+      "image": "",
+      "video": "",
+      "featured": false,
+      "createdAt": "2024-02-10"
+    },
+    {
+      "id": "film-8",
+      "title": "某小学毕业微电影《我们的歌》",
+      "category": "primary",
+      "type": "film",
+      "mediaType": "video",
+      "school": "惠州市某小学",
+      "description": "音乐与影像交织，唱响属于他们的童年",
+      "image": "",
+      "video": "",
+      "featured": false,
+      "createdAt": "2024-01-18"
     }
   ]
 }
